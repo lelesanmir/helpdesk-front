@@ -1,0 +1,38 @@
+<div class="container">
+  <form class="form mat-elevation-z8" (ngSubmit)="logar()">
+      <h1>Help Desk - Tips from a DEV</h1>
+      <img src="assets/img/login-image.svg" alt="Tips from a DEV">
+
+      <mat-form-field class="full-width">
+          <mat-label>E-mail</mat-label>
+          <input
+              [formControl]="email"
+              required
+              [(ngModel)]="creds.email"
+              name="email"
+              matInput
+              placeholder="Ex. so-and-so@gmail.com"
+              autocomplete="email">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+              [formControl]="password"
+              required
+              [(ngModel)]="creds.password"
+              name="password"
+              type="password"
+              matInput
+              placeholder="Ex. 123"
+              autocomplete="current-password">
+      </mat-form-field>
+
+      <button type="submit" [disabled]="!validateFields()"
+              class="full-width mat-elevation-z4"
+              mat-stroked-button
+              color="primary">
+          Login
+      </button>
+  </form>
+</div>
