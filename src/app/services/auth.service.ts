@@ -31,8 +31,11 @@ export class AuthService {
     }
     return false;
   }
+<<<<<<< HEAD
 
   logout() {
     localStorage.clear();
   }
+=======
+>>>>>>> 66374c9 (Updating and separating project files)
 }

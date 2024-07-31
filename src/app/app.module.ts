@@ -34,7 +34,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { TechinicianListComponent } from './components/technician/technician-list/techinician-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
+<<<<<<< HEAD
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
+=======
+>>>>>>> 66374c9 (Updating and separating project files)
 
 @NgModule({
   declarations: [
@@ -75,7 +78,11 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
       progressBar: true
     })
   ],
+<<<<<<< HEAD
   providers: [AuthInterceptorProvider],
+=======
+  providers: [],
+>>>>>>> 66374c9 (Updating and separating project files)
   bootstrap: [AppComponent]
 })
 export class AppModule { }
