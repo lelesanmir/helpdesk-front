@@ -1,40 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Credentials } from '../models/credentials';
 import { HttpClient } from '@angular/common/http';
-import { API_CONFIG } from '../config/api.config';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  jwtService: JwtHelperService = new JwtHelperService();
+  private apiUrl = 'http://localhost:8080/authenticate'; // Substitua pela URL do seu backend
 
   constructor(private http: HttpClient) { }
 
-  authenticate(creds: Credentials) {
-    return this.http.post(`${API_CONFIG.baseUrl}/login`, creds, {
-      observe: 'response',
-      responseType: 'text'
-    });
+  authenticate(creds: { email: string; password: string }): Observable<any> {
+    return this.http.post<any>(this.apiUrl, creds)
+      .pipe(
+        catchError(error => {
+          console.error('Erro na autenticação:', error);
+          return throwError(error);
+        })
+      );
   }
 
-  sucessfullLogin(token: string) {
-    localStorage.setItem('authToken', token);
+  sucessfullLogin(token: string): void {
+    localStorage.setItem('token', token);
+    console.log('Token armazenado:', token);
   }
 
-  isAuthenticate() {
-    let token = localStorage.getItem('authToken');
-    if (token != null) {
-      return !this.jwtService.isTokenExpired(token);
-    }
-    return false;
+  logout(): void {
+    localStorage.removeItem('token');
   }
 <<<<<<< HEAD
 
-  logout() {
-    localStorage.clear();
+  // Adicione o método isAuthenticated
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
   }
 =======
 >>>>>>> 66374c9 (Updating and separating project files)

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
-import { TechinicianListComponent } from './components/technician/technician-list/techinician-list.component';
+import { TechnicianListComponent } from './components/technician/technician-list/technician-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '', component: NavComponent, canActivate: [AuthGuard], children: [
       { path: 'login', component: LoginComponent },
       { path: 'home', component: HomeComponent },
-      { path: 'technical', component: TechinicianListComponent}
+      { path: 'technical', component: TechnicianListComponent}
     ]
   }
 ];

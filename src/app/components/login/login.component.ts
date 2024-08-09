@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Credentials } from 'src/app/models/credentials';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,38 +10,37 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  creds: Credentials = {
-    email: '',
-    password: ''
-  }
+  loginForm: FormGroup;
 
-  email = new FormControl(null, Validators.email);
-  password = new FormControl(null, Validators.minLength(3));
-
-  constructor(
-    private toastr: ToastrService,
-    private service: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-  }
-
-  logar() {
-    this.service.authenticate(this.creds).subscribe(resposta => {
-      const authHeader = resposta.headers.get('Authorization');
-      if (authHeader) {
-        this.service.sucessfullLogin(authHeader.substring(7));
-        this.router.navigate(['']);
-      } else {
-        this.toastr.error('Token not found in response!');
-      }
-    }, () => {
-      this.toastr.error('Invalid user and/or password!');
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required])
     });
   }
 
+  logar(): void {
+    if (this.loginForm.valid) {
+      const creds = this.loginForm.value;
+      this.authService.authenticate(creds).subscribe(
+        response => {
+          if (response && response.token) {
+            this.authService.sucessfullLogin(response.token);
+            this.router.navigate(['/home']); // Redirecionar para a página inicial ou outra página
+          } else {
+            console.error('Token não encontrado na resposta:', response);
+          }
+        },
+        error => {
+          console.error('Erro ao fazer login:', error);
+        }
+      );
+    }
+  }
+
   validateFields(): boolean {
-    return this.email.valid && this.password.valid;
+    return this.loginForm.valid;
   }
 }
