@@ -31,7 +31,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
-import { TechinicianListComponent } from './components/technician/technician-list/techinician-list.component';
+import { TechnicianListComponent } from './components/technician/technician-list/technician-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 <<<<<<< HEAD
@@ -45,7 +45,7 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     NavComponent,
     HomeComponent,
     HeaderComponent,
-    TechinicianListComponent,
+    TechnicianListComponent,
     LoginComponent
   ],
   imports: [
